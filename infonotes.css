@@ -1,0 +1,17 @@
+#globalactions{
+  background:lightblue;
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  border-radius:0 1em 0em 0;
+  padding:1em .5em;
+}
+#globalactions>*{
+  padding:0 .5em;
+  vertical-align:middle;
+}
+#globalactions img{
+  height:2em;
+  cursor:pointer;
+}
+#colorpicker{display:none;}

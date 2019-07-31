@@ -1,0 +1,15 @@
+paint.png
+=================
+* https://pixabay.com/vectors/paint-painting-painter-working-1970467/
+
+plus.png
+=====
+* https://pixabay.com/vectors/plus-sign-addition-mathematics-33596/
+
+rename.png
+========
+* https://pixabay.com/vectors/rename-item-sign-symbol-27285/
+
+trash.png
+======
+* https://commons.wikimedia.org/wiki/File:Trash_font_awesome.svg
