@@ -13,3 +13,7 @@ rename.png
 trash.png
 ======
 * https://commons.wikimedia.org/wiki/File:Trash_font_awesome.svg
+
+note.png
+======
+* https://commons.wikimedia.org/wiki/File:Icon_Notes.svg

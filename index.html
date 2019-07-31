@@ -2,18 +2,23 @@
   <head>
     <title>Infinotes</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="infonotes.css">
+    <link rel="stylesheet" href="infinotes.css">
     <script type="module">
-      import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground} from './src/infinotes.js';
+      import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground} from './src/ui.js';
+      import {createnote} from './src/note.js';
       window.load=load;
       window.changenotebook=changenotebook;
       window.renamenotebook=renamenotebook;
       window.addnotebook=addnotebook;
       window.deletenotebook=deletenotebook;
       window.changebackground=changebackground;
+      window.createnote=createnote;
     </script>
+    <!-- https://interactjs.io/ --> 
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
   </head>
   <body onload='load();'>
+    <div id='notebook'></div>
     <div id='globalactions'>
       <img src='images/plus.png' title='Create new notebook' onclick='addnotebook();'></img>
       <select id='activenotebook' onchange='changenotebook();'>
@@ -22,6 +27,7 @@
       <img src='images/rename.png' title='Rename notebook' onclick='renamenotebook();'></img>
       <img src='images/paint.png' title='Choose background color' onclick='changebackground();'></img>
       <img src='images/trash.png' title='Delete notebook' onclick='deletenotebook();'></img>
+      <img src='images/note.png' title='New note' onclick='createnote();'></img>
     </div>
     <input type="color" id='colorpicker'>
   </body>

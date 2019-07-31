@@ -1,4 +1,5 @@
 import {create,retrieve,update,del,tokey,getnotebooks} from './db.js';
+import {show} from './note.js';
 
 var active=false;
 
@@ -25,6 +26,10 @@ function open(key){
   if(!note) return;
   active=key;
   document.body.style.background=note.background;
+  console.log('children',note.children);
+  for(var c of note.children){
+    show(c);
+  }
 }
 
 export function addnotebook(){
@@ -40,7 +45,9 @@ export function addnotebook(){
     alert("A similar name already exists, please try again.");
     return;
   }
-  create(key,name);
+  var notebook=create(key,name);
+  notebook.background='gray';
+  update(key,notebook);
   load();
   let input=document.querySelector('#activenotebook');
   for(var i=0;i<input.options.length;i++){
@@ -95,3 +102,5 @@ export function changebackground(){
   };
   colorpicker.click();
 }
+
+export function getactive(){return active;}
