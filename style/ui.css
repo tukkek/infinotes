@@ -11,9 +11,10 @@
   padding:0 .5em;
   vertical-align:middle;
 }
-#globalactions img{
+#globalactions img,#globalactions a{
   height:2em;
   cursor:pointer;
+  display:inline-block;
 }
 #colorpicker{display:none;}
 body,#notebook{
@@ -24,10 +25,16 @@ body,#notebook{
   margin:0;
   display: inline-block;
 }
-
-.note{
-  border:1px solid white;
-  border-radius:1em;
-  box-sizing: border-box;
-  position:absolute;
+#zoombar{
+  background:lightblue;
+  position:fixed;
+  top:0px;
+  right:0px;
+  border-radius:0 0em 0em 1em;
+  padding:.5em .5em;
+  z-index:1;
+  display:none;
+}
+#zoombar #zoomed{
+  font-weight:bold;
 }

@@ -1,6 +1,15 @@
-import {getactive} from './ui.js';
-import {create,tokey,retrieve,update} from './db.js';
+import {getactive,pickcolor,open} from './ui.js';
+import {create,tokey,retrieve,update,del} from './db.js';
 import {enableinteract} from './interact.js';
+
+const INNERLINKS={
+  type: 'lang',
+  regex: /\[\[(.*)\]\]/g,
+  replace: '<a href="#" onclick="openlink(\'$1\')">$1</a>'
+}
+
+const SHOWDOWN=new showdown.Converter({extensions:[INNERLINKS]});
+SHOWDOWN.setOption('openLinksInNewWindow', 'true');
 
 export function createnote(){
   let parent=getactive();
@@ -18,33 +27,92 @@ export function createnote(){
     return;
   }
   create(key,name,parent);
-  console.log('create note',key);
   show(key);
+}
+
+function settext(body,note){
+  body.innerHTML=SHOWDOWN.makeHtml(note.content);
 }
 
 export function show(key){
   //console.log('retrieve note',key);
   let note=retrieve(key);
-  let div=document.createElement('div');
+  let template=document.querySelector('template#note').content;
+  let div=document.importNode(template,true).querySelector('div');
   div.style.left=note.x+'px';
   div.style.top=note.y+'px';
   div.style.width=note.width+'px';
   div.style.height=note.height+'px';
   div.style.background=note.background;
-  div.classList.add('note');
   div.setAttribute('key',key);
+  div.querySelector('.header').innerHTML=note.title;
+  settext(div.querySelector('.body'),note);
   document.querySelector('#notebook').appendChild(div);
   enableinteract(div);
 }
 
-export function updatenote(e){
-  let target=e.target;
-  let key=target.getAttribute('key');
+function getnotediv(target){
+  while(target&&!target.classList.contains('note')) target=target.parentNode;
+  return target;
+}
+
+export function updatenote(e){ //update note size and position from interact.js
+  let div=getnotediv(e.target)
+  let key=div.getAttribute('key');
   let note=retrieve(key);
-  var r=target.getBoundingClientRect();
+  var r=div.getBoundingClientRect();
   note.x=r.left;
   note.y=r.top;
-  note.width=target.clientWidth;
-  note.height=target.clientHeight;
+  note.width=div.clientWidth;
+  note.height=div.clientHeight;
   update(key,note);
+}
+
+export function changenotecolor(target){
+  let div=getnotediv(target);
+  let key=div.getAttribute('key');
+  let note=retrieve(key);
+  pickcolor(note,function(color){
+    div.style.background=color;
+    note.background=color;
+    update(key,note);
+  });
+}
+
+export function expandnote(target){
+  open(getnotediv(target).getAttribute('key'));
+}
+
+export function editnote(target){
+  let div=getnotediv(target);
+  let key=div.getAttribute('key');
+  let note=retrieve(key);
+  let body=div.querySelector('.body');
+  if(body.getAttribute('editing')){
+    body.removeAttribute('editing');
+    note.content=body.querySelector('textarea').value;
+    settext(body,note);
+    update(key,note);
+  }else{
+    body.innerHTML='';
+    var text=document.createElement('textarea');
+    text.innerHTML=note.content;
+    text.addEventListener('keydown',function(e){
+      if (e.keyCode!=13||!e.ctrlKey) return false;
+      editnote(e.target);
+      return true;
+    });
+    body.appendChild(text);
+    text.focus();
+    body.setAttribute('editing','yes');
+  }
+}
+
+export function deletenote(target){
+  let div=getnotediv(target);
+  let key=div.getAttribute('key');
+  let note=retrieve(key);
+  if(!confirm('Are you sure you want to delete the note "'+note.title+'"?')) return;
+  del(key);
+  div.parentNode.removeChild(div);
 }

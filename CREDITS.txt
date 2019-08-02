@@ -17,3 +17,19 @@ trash.png
 note.png
 ======
 * https://commons.wikimedia.org/wiki/File:Icon_Notes.svg
+
+move.png
+======
+* https://commons.wikimedia.org/wiki/File:Move_icon.svg
+
+zoom.png
+======
+* https://en.wikipedia.org/wiki/File:Magnifying_glass_icon.svg
+
+save.png
+======
+* https://commons.wikimedia.org/wiki/File:Save_font_awesome.svg
+
+load.png
+======
+* https://www.needpix.com/photo/655487/download-icon-internet-black-symbol-web-button-www-logo

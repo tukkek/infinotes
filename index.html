@@ -2,33 +2,63 @@
   <head>
     <title>Infinotes</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="infinotes.css">
+    <link rel="stylesheet" href="style/ui.css">
+    <link rel="stylesheet" href="style/note.css">
     <script type="module">
-      import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground} from './src/ui.js';
-      import {createnote} from './src/note.js';
+      import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground,goup,openlink} from './src/ui.js';
+      import {createnote,changenotecolor,expandnote,editnote,deletenote} from './src/note.js';
+      import {savebackup,loadbackup} from './src/backup.js';
       window.load=load;
       window.changenotebook=changenotebook;
       window.renamenotebook=renamenotebook;
       window.addnotebook=addnotebook;
       window.deletenotebook=deletenotebook;
       window.changebackground=changebackground;
+      window.goup=goup;
+      window.openlink=openlink;
       window.createnote=createnote;
+      window.changenotecolor=changenotecolor;
+      window.expandnote=expandnote;
+      window.editnote=editnote;
+      window.deletenote=deletenote;
+      window.savebackup=savebackup;
+      window.loadbackup=loadbackup;
     </script>
     <!-- https://interactjs.io/ --> 
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+    <template id='note'>
+      <div class='note'>
+        <div class='actions'>
+          <img src='images/move.png' title='Move' class='move'>
+          <img src='images/rename.png' title='Edir/save note (markdown allowed)' onclick='editnote(this);'>
+          <img src='images/paint.png' title='Change background' onclick='changenotecolor(this);'>
+          <img src='images/zoom.png' title='Expand into this note' onclick='expandnote(this);'>
+          <img src='images/trash.png' title='Delete note' onclick='deletenote(this);'>
+        </div>
+        <div class='header'></div>
+        <div class='body'></div>
+      </div>
+    </template>
   </head>
-  <body onload='load();'>
-    <div id='notebook'></div>
+  <body onload='load(true);'>
+    <div id='notebook'>
+    </div>
     <div id='globalactions'>
       <img src='images/plus.png' title='Create new notebook' onclick='addnotebook();'></img>
       <select id='activenotebook' onchange='changenotebook();'>
         <option value=''>Choose active notebook...</option>
       </select>
       <img src='images/rename.png' title='Rename notebook' onclick='renamenotebook();'></img>
-      <img src='images/paint.png' title='Choose background color' onclick='changebackground();'></img>
+      <a onclick='savebackup(this);'><img src='images/save.png' title='Export notebook'></img></a>
+      <a onclick='loadbackup(this);'><img src='images/load.png' title='Import notebook'></img></a>
       <img src='images/trash.png' title='Delete notebook' onclick='deletenotebook();'></img>
+      |
+      <img src='images/paint.png' title='Choose background color' onclick='changebackground();'></img>
       <img src='images/note.png' title='New note' onclick='createnote();'></img>
     </div>
+    <div id='zoombar'>
+      Viewing: <span id='zoomed'></span>. <a href='#' onclick='goup();'>Zoom out</a></div>
     <input type="color" id='colorpicker'>
   </body>
 </html>

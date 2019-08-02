@@ -2,6 +2,7 @@ import {updatenote} from './note.js';
 
 function dragMoveListener(event) {
   var target = event.target
+  while(!target.classList.contains('note')) target=target.parentNode;
   var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
   var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
   target.style.webkitTransform=target.style.transform='translate(' + x + 'px, ' + y + 'px)'
@@ -11,10 +12,6 @@ function dragMoveListener(event) {
 
 export function enableinteract(element){
   interact(element)
-    .draggable({
-      onmove:dragMoveListener,
-      onend:updatenote
-    })
     .resizable({
       // resize from all edges and corners
       edges: { left: true, right: true, bottom: true, top: true },
@@ -23,9 +20,9 @@ export function enableinteract(element){
       onend:updatenote,
     })
     .on('resizemove', function (event) {
-      var target = event.target;
-      var x = (parseFloat(target.getAttribute('data-x')) || 0);
-      var y = (parseFloat(target.getAttribute('data-y')) || 0);
+      let target = event.target;
+      let x = (parseFloat(target.getAttribute('data-x')) || 0);
+      let y = (parseFloat(target.getAttribute('data-y')) || 0);
       // update the element's style
       target.style.width=event.rect.width + 'px';
       target.style.height=event.rect.height + 'px';
@@ -36,4 +33,10 @@ export function enableinteract(element){
       target.setAttribute('data-x', x);
       target.setAttribute('data-y', y);
     });
+  for(let draggable of [element.querySelector('.header'),element.querySelector('.actions .move'),])
+    interact(draggable)
+      .draggable({
+          onmove:dragMoveListener,
+          onend:updatenote
+        })
 }

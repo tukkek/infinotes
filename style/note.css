@@ -1,0 +1,38 @@
+.note{
+  border:1px solid white;
+  border-radius:1em;
+  box-sizing: border-box;
+  position:absolute;
+  padding:.75em;
+  padding-right:0;
+  overflow:hidden;
+}
+.note .header{
+  font-weight:bold;
+  font-size:large;
+  display:inline-block;
+  mix-blend-mode:difference;
+  color:white;
+  stroke: black;
+  stroke-width:2px;
+}
+.note .actions{
+  float:right;
+  height:100%;
+  width:2em;
+  border-left:1px black dashed;
+  padding-left:.25em;
+}
+.note .actions img{
+  cursor:pointer;
+  width:1.5em;
+  margin-bottom:.5em;
+}
+.note .body{
+  margin-top:.5em;
+}
+
+.note .body textarea{
+  width:calc(100% - 5em);
+  height:calc(100% - 3em);
+}
