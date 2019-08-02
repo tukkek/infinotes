@@ -53,13 +53,13 @@
         <img src='images/help.png' title='Open manual'></img>
       </a>
       <img src='images/plus.png' title='Create new notebook' onclick='addnotebook();'></img>
+      <a onclick='loadbackup(this);'><img src='images/load.png' title='Import notebook'></img></a>
       <select id='activenotebook' onchange='changenotebook();'>
         <option value=''>Choose active notebook...</option>
       </select>
       <span id='notebookactions'>
         <img src='images/rename.png' title='Rename notebook' onclick='renamenotebook();'></img>
         <a onclick='savebackup(this);'><img src='images/save.png' title='Export notebook'></img></a>
-        <a onclick='loadbackup(this);'><img src='images/load.png' title='Import notebook'></img></a>
         <img src='images/trash.png' title='Delete notebook' onclick='deletenotebook();'></img>
         |
         <img src='images/paint.png' title='Set background color' onclick='changebackground();'></img>

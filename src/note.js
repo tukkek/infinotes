@@ -58,24 +58,22 @@ function getnotediv(target){
 
 export function updatenote(e){ //update note size and position from interact.js
   let div=getnotediv(e.target)
-  let key=div.getAttribute('key');
-  let note=retrieve(key);
+  let note=retrieve(div.getAttribute('key'));
   var r=div.getBoundingClientRect();
   note.x=r.left;
   note.y=r.top;
   note.width=div.clientWidth;
   note.height=div.clientHeight;
-  update(key,note);
+  update(note.key,note);
 }
 
 export function changenotecolor(target){
   let div=getnotediv(target);
-  let key=div.getAttribute('key');
-  let note=retrieve(key);
+  let note=retrieve(div.getAttribute('key'));
   pickcolor(note,function(color){
     div.style.background=color;
     note.background=color;
-    update(key,note);
+    update(note.key,note);
   });
 }
 
@@ -85,14 +83,13 @@ export function expandnote(target){
 
 export function editnote(target){
   let div=getnotediv(target);
-  let key=div.getAttribute('key');
-  let note=retrieve(key);
+  let note=retrieve(div.getAttribute('key'));
   let body=div.querySelector('.body');
   if(body.getAttribute('editing')){
     body.removeAttribute('editing');
     note.content=body.querySelector('textarea').value;
     settext(body,note);
-    update(key,note);
+    update(note.key,note);
   }else{
     body.innerHTML='';
     var text=document.createElement('textarea');
@@ -110,36 +107,33 @@ export function editnote(target){
 
 export function deletenote(target){
   let div=getnotediv(target);
-  let key=div.getAttribute('key');
-  let note=retrieve(key);
+  let note=retrieve(div.getAttribute('key'));
   if(!confirm('Are you sure you want to delete the note "'+note.title+'"?')) return;
-  del(key);
+  del(note.key);
   div.parentNode.removeChild(div);
 }
 
 export function renamenote(target){
   let div=getnotediv(target);
-  let key=div.getAttribute('key');
-  let note=retrieve(key);
+  let note=retrieve(div.getAttribute('key'));
   let name=prompt('Choose new name for note:',note.title);
   if(name){
     note.title=name;
-    update(key,note);
+    update(note.key,note);
     target.innerHTML=name;
   }  
 }
 
 export function transfernote(target){
   let div=getnotediv(target);
-  let key=div.getAttribute('key');
-  let note=retrieve(key);
+  let note=retrieve(div.getAttribute('key'));
   let transferdiv=document.querySelector('#transferpanel');
-  transferdiv.setAttribute('key',key);
+  transferdiv.setAttribute('key',note.key);
   transferdiv.querySelector('#transfername').innerHTML=note.title;
   let select=transferdiv.querySelector('select');
   select.innerHTML='';
   for(let n of getnotes()){
-    if(n.key==key||n.key==note.parent) continue;
+    if(n.key==note.key||n.key==note.parent) continue;
     let option=document.createElement('option');
     option.innerHTML=n.title;
     option.value=n.key;
@@ -150,15 +144,14 @@ export function transfernote(target){
 
 export function confirmtransfer(){
   let transferdiv=document.querySelector('#transferpanel');
-  let key=transferdiv.getAttribute('key');
-  let note=retrieve(key);
+  let note=retrieve(transferdiv.getAttribute('key'));
   let select=transferdiv.querySelector('select');
   var selected=select.selectedIndex;
   if(selected<0) return;
   note.parent=select.options[selected].value;
-  del(key);
-  create(key,note.title,note.parent);
-  update(key,note);
+  del(note.key);
+  create(note.key,note.title,note.parent);
+  update(note.key,note);
   transferdiv.style.display="none";
   var notediv=document.querySelector('.note[key="'+note.key+'"]');
   notediv.parentNode.removeChild(notediv);
