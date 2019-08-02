@@ -1,4 +1,4 @@
-import {getactive} from './ui.js';
+import {getactive,getnotebook} from './ui.js';
 
 // deal with the persistence layer, currently localStorage but some day may become MongoDB or similar
 export function tokey(name,parent=false){
@@ -61,7 +61,7 @@ export function del(key){
 }
 
 export function getnotebooks(){
-  var notebooks=[];
+  let notebooks=[];
   for(let i=0;i<localStorage.length;i++){
     let key=localStorage.key(i);
     if(key[0]!='_'&&key.indexOf('.')<0) notebooks.push(retrieve(key));
@@ -77,4 +77,15 @@ export function findbytitle(title,note){
     if(c) return c;
   }
   return false;
+}
+
+export function getnotes(){
+  let notebook=getnotebook().key;
+  let prefix=notebook+'.';
+  let notes=[];
+  for(let i=0;i<localStorage.length;i++){
+    let key=localStorage.key(i);
+    if(key==notebook||key.indexOf(prefix)==0) notes.push(retrieve(key));
+  }
+  return notes;
 }

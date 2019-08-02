@@ -37,3 +37,7 @@ load.png
 help.png
 =====
 * https://www.needpix.com/photo/1092259/question-mark-question-help-think-request-characters-problem-note-symbol
+
+transfer.png
+========
+* https://commons.wikimedia.org/wiki/File:Icon_Move.svg

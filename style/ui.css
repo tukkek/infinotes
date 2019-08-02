@@ -38,3 +38,33 @@ body,#notebook{
 #zoombar #zoomed{
   font-weight:bold;
 }
+#transferpanel{
+  width:75%;
+  height:75%;
+  top:13%;
+  left:13%;
+  position:absolute;
+  background-color:darkgray;
+  z-index:1;
+  border-radius:3em;
+  text-align:center;
+  padding-top:1em;
+  display:none;
+}
+
+#transferpanel select{
+  width:90%;
+  height:70%;
+  margin-top:1em;
+}
+
+#transferpanel .header{
+  margin-left:3em;
+  font-size:larger;
+  text-align:left;
+  font-weight:bold;
+}
+
+#transferpanel #transferactions{
+  margin-top:1em;
+}

@@ -1,5 +1,5 @@
 import {getactive,pickcolor,open} from './ui.js';
-import {create,tokey,retrieve,update,del} from './db.js';
+import {create,tokey,retrieve,update,del,getnotes} from './db.js';
 import {enableinteract} from './interact.js';
 
 const INNERLINKS={
@@ -127,4 +127,39 @@ export function renamenote(target){
     update(key,note);
     target.innerHTML=name;
   }  
+}
+
+export function transfernote(target){
+  let div=getnotediv(target);
+  let key=div.getAttribute('key');
+  let note=retrieve(key);
+  let transferdiv=document.querySelector('#transferpanel');
+  transferdiv.setAttribute('key',key);
+  transferdiv.querySelector('#transfername').innerHTML=note.title;
+  let select=transferdiv.querySelector('select');
+  select.innerHTML='';
+  for(let n of getnotes()){
+    if(n.key==key||n.key==note.parent) continue;
+    let option=document.createElement('option');
+    option.innerHTML=n.title;
+    option.value=n.key;
+    select.appendChild(option);
+  }
+  transferdiv.style.display='initial';
+}
+
+export function confirmtransfer(){
+  let transferdiv=document.querySelector('#transferpanel');
+  let key=transferdiv.getAttribute('key');
+  let note=retrieve(key);
+  let select=transferdiv.querySelector('select');
+  var selected=select.selectedIndex;
+  if(selected<0) return;
+  note.parent=select.options[selected].value;
+  del(key);
+  create(key,note.title,note.parent);
+  update(key,note);
+  transferdiv.style.display="none";
+  var notediv=document.querySelector('.note[key="'+note.key+'"]');
+  notediv.parentNode.removeChild(notediv);
 }
