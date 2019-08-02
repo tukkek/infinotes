@@ -9,12 +9,13 @@
 }
 .note .header{
   font-weight:bold;
-  font-size:large;
+  font-size:larger;
   display:inline-block;
   mix-blend-mode:difference;
   color:white;
   stroke: black;
   stroke-width:2px;
+  cursor:pointer;
 }
 .note .actions{
   float:right;

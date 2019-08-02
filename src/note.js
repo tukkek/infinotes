@@ -116,3 +116,15 @@ export function deletenote(target){
   del(key);
   div.parentNode.removeChild(div);
 }
+
+export function renamenote(target){
+  let div=getnotediv(target);
+  let key=div.getAttribute('key');
+  let note=retrieve(key);
+  let name=prompt('Choose new name for note:',note.title);
+  if(name){
+    note.title=name;
+    update(key,note);
+    target.innerHTML=name;
+  }  
+}

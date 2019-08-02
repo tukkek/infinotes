@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style/note.css">
     <script type="module">
       import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground,goup,openlink} from './src/ui.js';
-      import {createnote,changenotecolor,expandnote,editnote,deletenote} from './src/note.js';
+      import {createnote,changenotecolor,expandnote,editnote,deletenote,renamenote} from './src/note.js';
       import {savebackup,loadbackup} from './src/backup.js';
       window.load=load;
       window.changenotebook=changenotebook;
@@ -21,6 +21,7 @@
       window.expandnote=expandnote;
       window.editnote=editnote;
       window.deletenote=deletenote;
+      window.renamenote=renamenote;
       window.savebackup=savebackup;
       window.loadbackup=loadbackup;
     </script>
@@ -36,7 +37,7 @@
           <img src='images/zoom.png' title='Expand into this note' onclick='expandnote(this);'>
           <img src='images/trash.png' title='Delete note' onclick='deletenote(this);'>
         </div>
-        <div class='header'></div>
+        <div class='header' onclick='renamenote(this);' title='Click to rename'></div>
         <div class='body'></div>
       </div>
     </template>
@@ -45,18 +46,23 @@
     <div id='notebook'>
     </div>
     <div id='globalactions'>
+      <a  href='https://github.com/tukkek/infinotes#infinotes' target='_blank'>
+        <img src='images/help.png' title='Open manual'></img>
+      </a>
       <img src='images/plus.png' title='Create new notebook' onclick='addnotebook();'></img>
       <select id='activenotebook' onchange='changenotebook();'>
         <option value=''>Choose active notebook...</option>
       </select>
-      <img src='images/rename.png' title='Rename notebook' onclick='renamenotebook();'></img>
-      <a onclick='savebackup(this);'><img src='images/save.png' title='Export notebook'></img></a>
-      <a onclick='loadbackup(this);'><img src='images/load.png' title='Import notebook'></img></a>
-      <img src='images/trash.png' title='Delete notebook' onclick='deletenotebook();'></img>
-      |
-      <img src='images/paint.png' title='Choose background color' onclick='changebackground();'></img>
-      <img src='images/note.png' title='New note' onclick='createnote();'></img>
-    </div>
+      <span id='notebookactions'>
+        <img src='images/rename.png' title='Rename notebook' onclick='renamenotebook();'></img>
+        <a onclick='savebackup(this);'><img src='images/save.png' title='Export notebook'></img></a>
+        <a onclick='loadbackup(this);'><img src='images/load.png' title='Import notebook'></img></a>
+        <img src='images/trash.png' title='Delete notebook' onclick='deletenotebook();'></img>
+        |
+        <img src='images/paint.png' title='Set background color' onclick='changebackground();'></img>
+        <img src='images/note.png' title='New note' onclick='createnote();'></img>
+      </div>
+    </span>
     <div id='zoombar'>
       Viewing: <span id='zoomed'></span>. <a href='#' onclick='goup();'>Zoom out</a></div>
     <input type="color" id='colorpicker'>

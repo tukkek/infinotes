@@ -33,8 +33,7 @@ export function enableinteract(element){
       target.setAttribute('data-x', x);
       target.setAttribute('data-y', y);
     });
-  for(let draggable of [element.querySelector('.header'),element.querySelector('.actions .move'),])
-    interact(draggable)
+    interact(element.querySelector('.actions .move'))
       .draggable({
           onmove:dragMoveListener,
           onend:updatenote

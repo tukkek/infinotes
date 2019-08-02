@@ -15,9 +15,10 @@ function updatenavigation(){
       }
   }
   var note=retrieve(active);
-  var parent=note.parent;
+  document.querySelector('#notebookactions').style.opacity=note?1:.25;
+  var parent=note&&note.parent;
   var topbar=document.querySelector('#zoombar');
-  topbar.querySelector('#zoomed').innerHTML=note.title;
+  if(note) topbar.querySelector('#zoomed').innerHTML=note.title;
   topbar.style.display=parent?'initial':'none';
 }
 
@@ -36,6 +37,7 @@ export function load(starting=false){
     var lastopen=localStorage.getItem(LASTOPEN);
     if(lastopen) open(lastopen);
   }
+  updatenavigation();
 }
 
 export function changenotebook(){

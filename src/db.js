@@ -14,21 +14,28 @@ export function randomcolor(){
 }
 
 export function create(key,name,parent=false){
+  let x=0;
+  let y=0;
+  if(parent) {
+    parent=retrieve(parent);
+    for(let c of parent.children){
+      c=retrieve(c);
+      x=Math.max(x,c.x+c.width);
+      y=Math.max(y,c.y);
+    }
+    parent.children.push(key);
+    update(parent.key,parent);
+  }
   var note={
     title:name,
     background:'rgb('+randomcolor()+','+randomcolor()+','+randomcolor()+')',
     children:[],
-    parent:parent,
-    x:0,y:0,
+    parent:parent.key,
+    x:x,y:y,
     width:400,height:200,
     content:'',
   };
   localStorage.setItem(key,JSON.stringify(note));
-  if(parent){
-    var p=retrieve(parent);
-    p.children.push(key);
-    update(parent,p);
-  }
   return note;
 }
 

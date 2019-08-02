@@ -33,3 +33,7 @@ save.png
 load.png
 ======
 * https://www.needpix.com/photo/655487/download-icon-internet-black-symbol-web-button-www-logo
+
+help.png
+=====
+* https://www.needpix.com/photo/1092259/question-mark-question-help-think-request-characters-problem-note-symbol
