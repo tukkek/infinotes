@@ -8,13 +8,13 @@ function fillbackup(key,data){
 }
 
 export function savebackup(target){
-  let notebook=getnotebook().key;
+  let notebook=getnotebook();
   if(!notebook) return;
-  let backup={'_notebook':notebook,};
-  fillbackup(notebook,backup);
+  let backup={'_notebook':notebook.key,};
+  fillbackup(notebook.key,backup);
   let file=new Blob([JSON.stringify(backup)],{type: 'application/json'});
   target.href=URL.createObjectURL(file);
-  target.download='infinotes.json';
+  target.download=notebook.title+'.json';
 }
 
 function restorebackup(data){
