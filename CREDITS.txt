@@ -41,3 +41,7 @@ help.png
 transfer.png
 ========
 * https://commons.wikimedia.org/wiki/File:Icon_Move.svg
+
+target.png
+=======
+* https://commons.wikimedia.org/wiki/File:Target_simple_3circles.svg

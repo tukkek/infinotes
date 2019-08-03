@@ -26,13 +26,19 @@ export function create(key,name,parent=false){
     parent.children.push(key);
     update(parent.key,parent);
   }
+  x+=10;
+  let width=400;
+  let height=250;
+  while(x+width>document.body.clientWidth){
+    x=10;
+    y+=height;
+  }
   var note={
     title:name,
     background:'rgb('+randomcolor()+','+randomcolor()+','+randomcolor()+')',
     children:[],
     parent:parent.key,
-    x:x,y:y,
-    width:400,height:200,
+    x:x,y:y,width:width,height:height,
     content:'',
   };
   localStorage.setItem(key,JSON.stringify(note));

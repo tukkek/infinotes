@@ -3,9 +3,7 @@
   border-radius:1em;
   box-sizing: border-box;
   position:absolute;
-  padding:.75em;
-  padding-right:0;
-  overflow:hidden;
+  padding:.5em;
 }
 .note .header{
   font-weight:bold;
@@ -18,22 +16,47 @@
   cursor:pointer;
 }
 .note .actions{
-  float:right;
+  float:left;
   height:100%;
+  border-right:1px black dashed;
+  margin-right:.5em;
+  display:none;
+  overflow:hidden;
   width:2em;
-  border-left:1px black dashed;
-  padding-left:.25em;
 }
 .note .actions img{
   cursor:pointer;
-  width:1.5em;
-  margin-bottom:.5em;
+  height:1.25em;
+  margin:.5em auto;
+  display:block;
 }
 .note .body{
-  margin-top:.5em;
+  height:calc(100% - 2em);
+  overflow-y:auto;
+  text-align:justify;
+  padding-right:.5em;
+  overflow:hidden;
+  font-family:serif;
+  font-size:1em;
 }
 
 .note .body textarea{
-  width:calc(100% - 5em);
-  height:calc(100% - 3em);
+  width:calc(100% - 0em);
+  height:calc(100% - 2em);
+  margin-top:1em;
+  font-family:serif;
+  font-size:1em;
+}
+.focus{
+  top:0!important;
+  left:0!important;
+  width:100%!important;
+  height:100%!important;
+  transform:none!important;
+}
+.note:hover .actions{
+  display:initial;
+}
+.note:hover .body{
+  overflow:auto!important;
 }

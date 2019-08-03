@@ -4,7 +4,7 @@ import {enableinteract} from './interact.js';
 
 const INNERLINKS={
   type: 'lang',
-  regex: /\[\[(.*)\]\]/g,
+  regex: /\[\[(.*?)\]\]/g,
   replace: '<a href="#" onclick="openlink(\'$1\')">$1</a>'
 }
 
@@ -155,4 +155,13 @@ export function confirmtransfer(){
   transferdiv.style.display="none";
   var notediv=document.querySelector('.note[key="'+note.key+'"]');
   notediv.parentNode.removeChild(notediv);
+}
+
+export function focusnote(target){
+  let div=getnotediv(target);
+  if(div.classList.contains('focus')){
+    div.classList.remove('focus');
+  }else{
+    div.classList.add('focus');
+  }
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style/note.css">
     <script type="module">
       import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground,goup,openlink} from './src/ui.js';
-      import {createnote,changenotecolor,expandnote,editnote,deletenote,renamenote,transfernote,confirmtransfer} from './src/note.js';
+      import {createnote,changenotecolor,expandnote,editnote,deletenote,renamenote,transfernote,confirmtransfer,focusnote} from './src/note.js';
       import {savebackup,loadbackup} from './src/backup.js';
       window.load=load;
       window.changenotebook=changenotebook;
@@ -24,6 +24,7 @@
       window.deletenote=deletenote;
       window.renamenote=renamenote;
       window.transfernote=transfernote;
+      window.focusnote=focusnote;
       window.confirmtransfer=confirmtransfer;
       window.savebackup=savebackup;
       window.loadbackup=loadbackup;
@@ -36,8 +37,9 @@
         <div class='actions'>
           <img src='images/move.png' title='Move' class='move'>
           <img src='images/rename.png' title='Edir/save note (markdown allowed)' onclick='editnote(this);'>
+          <img src='images/zoom.png' title='Zoom into this note' onclick='expandnote(this);'>
+          <img src='images/target.png' title='Enable/disable focus mode' onclick='focusnote(this);'>
           <img src='images/paint.png' title='Change background' onclick='changenotecolor(this);'>
-          <img src='images/zoom.png' title='Expand into this note' onclick='expandnote(this);'>
           <img src='images/transfer.png' title='Transfer note to another board' onclick='transfernote(this);'>
           <img src='images/trash.png' title='Delete note' onclick='deletenote(this);'>
         </div>
