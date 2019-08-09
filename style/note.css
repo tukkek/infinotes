@@ -4,6 +4,7 @@
   box-sizing: border-box;
   position:absolute;
   padding:.5em;
+  z-index:0;
 }
 .note .header{
   font-weight:bold;
@@ -53,6 +54,7 @@
   width:100%!important;
   height:100%!important;
   transform:none!important;
+  z-index:2;
 }
 .note:hover .actions{
   display:initial;

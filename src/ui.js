@@ -1,7 +1,7 @@
 import {create,retrieve,update,del,tokey,getnotebooks,findbytitle} from './db.js';
 import {show} from './note.js';
 
-const LASTOPEN='_lastopen';
+export const LASTOPEN='_lastopen';
 
 var active=false;
 
