@@ -10,7 +10,9 @@ export function tokey(name,parent=false){
 }
 
 export function randomcolor(){
-  return Math.floor(Math.random()*255);
+  var c=Math.floor(Math.random()*255).toString(16);
+  if(c.length==1) c='0'+c;
+  return c;
 }
 
 export function create(key,name,parent=false){
@@ -35,7 +37,7 @@ export function create(key,name,parent=false){
   }
   var note={
     title:name,
-    background:'rgb('+randomcolor()+','+randomcolor()+','+randomcolor()+')',
+    background:'#'+randomcolor()+randomcolor()+randomcolor(),
     children:[],
     parent:parent.key,
     x:x,y:y,width:width,height:height,

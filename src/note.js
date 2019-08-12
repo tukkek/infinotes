@@ -35,7 +35,6 @@ function settext(body,note){
 }
 
 export function show(key){
-  //console.log('retrieve note',key);
   let note=retrieve(key);
   let template=document.querySelector('template#note').content;
   let div=document.importNode(template,true).querySelector('div');
