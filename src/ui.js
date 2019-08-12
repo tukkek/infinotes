@@ -5,6 +5,13 @@ export const LASTOPEN='_lastopen';
 
 var active=false;
 
+export function getnotebook(){
+  if(!active) return false;
+  var note=active;
+  if(note.indexOf('.')>=0) note=note.substr(0,note.indexOf('.'));
+  return retrieve(note);
+}
+
 function updatenavigation(){
   let input=document.querySelector('#activenotebook');
   var selected=getnotebook().key;
@@ -79,13 +86,6 @@ export function addnotebook(){
   updatenavigation();
 }
 
-export function getnotebook(){
-  if(!active) return false;
-  var note=active;
-  if(note.indexOf('.')>=0) note=note.substr(0,note.indexOf('.'));
-  return retrieve(note);
-}
-
 export function deletenotebook(){
   if(!active) return;
   var notebook=getnotebook();
@@ -150,4 +150,8 @@ export function openlink(link){ //open internal links
     return;
   }
   if(note.parent!=active) open(note.parent);
+}
+
+export function gotop(){
+  open(getnotebook().key);
 }

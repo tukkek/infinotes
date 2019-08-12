@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style/ui.css">
     <link rel="stylesheet" href="style/note.css">
     <script type="module">
-      import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground,goup,openlink} from './src/ui.js';
+      import {load,changenotebook,renamenotebook,addnotebook,deletenotebook,changebackground,goup,gotop,openlink} from './src/ui.js';
       import {createnote,changenotecolor,expandnote,editnote,deletenote,renamenote,transfernote,confirmtransfer,focusnote} from './src/note.js';
       import {savebackup,loadbackup} from './src/backup.js';
       window.load=load;
@@ -16,6 +16,7 @@
       window.deletenotebook=deletenotebook;
       window.changebackground=changebackground;
       window.goup=goup;
+      window.gotop=gotop;
       window.openlink=openlink;
       window.createnote=createnote;
       window.changenotecolor=changenotecolor;
@@ -70,7 +71,9 @@
       </div>
     </span>
     <div id='zoombar'>
-      Viewing: <span id='zoomed'></span>. <a href='#' onclick='goup();'>Zoom out</a>
+      Viewing: <span id='zoomed'></span>.
+      <a href='#' onclick='goup();'>To parent</a>
+      <a href='#' onclick='gotop();'>To top</a>
     </div>
     <input type="color" id='colorpicker'>
     <div id='transferpanel'>

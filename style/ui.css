@@ -34,6 +34,7 @@ body,#notebook{
   padding:.5em .5em;
   z-index:1;
   display:none;
+  font-size:small;
 }
 #zoombar #zoomed{
   font-weight:bold;
@@ -51,20 +52,17 @@ body,#notebook{
   padding-top:1em;
   display:none;
 }
-
 #transferpanel select{
   width:90%;
   height:70%;
   margin-top:1em;
 }
-
 #transferpanel .header{
   margin-left:3em;
   font-size:larger;
   text-align:left;
   font-weight:bold;
 }
-
 #transferpanel #transferactions{
   margin-top:1em;
 }
