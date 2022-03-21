@@ -1,7 +1,6 @@
 import {create,retrieve,update,del,tokey,getnotebooks,findbytitle} from './db.js';
 import {show} from './note.js';
-
-export const LASTOPEN='_lastopen';
+import * as db from './db.js'
 
 var active=false;
 
@@ -14,13 +13,15 @@ export function getnotebook(){
 
 function updatenavigation(){
   let input=document.querySelector('#activenotebook');
-  var selected=getnotebook().key;
+  var selected=getnotebook()
+  if(!selected) return
   for(var i=0;i<input.options.length;i++){
-      if(input.options[i].getAttribute('key')==selected) {
-        input.selectedIndex=i;
-        break;
-      }
+    if(input.options[i].getAttribute('key')==selected.key) {
+      input.selectedIndex=i;
+      break;
+    }
   }
+  if(!active) return
   var note=retrieve(active);
   document.querySelector('#notebookactions').style.opacity=note?1:.25;
   var parent=note&&note.parent;
@@ -41,7 +42,7 @@ export function load(starting=false){
     input.appendChild(option);
   }
   if(starting){
-    var lastopen=localStorage.getItem(LASTOPEN);
+    var lastopen=db.get(db.LASTOPEN);
     if(lastopen) open(lastopen);
   }
   updatenavigation();
@@ -54,15 +55,16 @@ export function changenotebook(){
 
 export function open(key){
   var note=retrieve(key);
-  if(!note) return;
+  if(!note) return;false
   document.querySelector('#notebook').innerHTML='';
   active=key;
   document.body.style.background=note.background;
   for(var c of note.children){
     show(c);
   }
-  localStorage.setItem(LASTOPEN,active);
+  db.set(active,db.LASTOPEN);
   updatenavigation();
+  return true
 }
 
 export function addnotebook(){
@@ -78,9 +80,7 @@ export function addnotebook(){
     alert("A similar name already exists, please try again.");
     return;
   }
-  var notebook=create(key,name);
-  /*notebook.background='#808080';
-  update(key,notebook);*/
+  var notebook=db.create(key,name);
   load();
   open(key);
   updatenavigation();

@@ -1,5 +1,6 @@
-import {getnotebook,open,LASTOPEN} from './ui.js';
+import {getnotebook,open} from './ui.js';
 import {retrieve,del} from './db.js';
+import * as db from './db.js'
 
 function fillbackup(key,data){
   let note=retrieve(key);
@@ -28,10 +29,9 @@ function restorebackup(data){
   }
   delete data['_notebook'];
   for(let key in data) {
-    console.log(key);
-    localStorage.setItem(key,JSON.stringify(data[key]));
+    db.set(JSON.stringify(data[key]),key);
   }
-  localStorage.setItem(LASTOPEN,notebook);
+  db.set(notebook,db.LASTOPEN);
   location.reload();
 }
 

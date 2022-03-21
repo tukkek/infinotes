@@ -1,6 +1,15 @@
+// deal with the persistence layer, currently localStorage but some day may become MongoDB or similar
 import {getactive,getnotebook} from './ui.js';
 
-// deal with the persistence layer, currently localStorage but some day may become MongoDB or similar
+export const LASTOPEN='_lastopen';
+const PREFIX='infinotes_'//sanitize namespace, as localStorage can be shared (ie. localhost or github.com)
+
+function prefix(key){
+//   debugger
+  return key.indexOf(PREFIX)==0?key:PREFIX+key}
+export function get(key){return localStorage.getItem(prefix(key))}
+export function set(value,key){return localStorage.setItem(prefix(key),value)}
+
 export function tokey(name,parent=false){
   if(name.length==0||name.indexOf('.')>=0||name.indexOf('"')>=0||name[0]=='_') return false;
   while(name.indexOf(' ')>=0) name=name.replace(' ','');
@@ -43,21 +52,23 @@ export function create(key,name,parent=false){
     x:x,y:y,width:width,height:height,
     content:'',
   };
-  localStorage.setItem(key,JSON.stringify(note));
+  set(JSON.stringify(note),key);
   return note;
 }
 
 export function retrieve(key){
-  var note=JSON.parse(localStorage.getItem(key));
-  if(note) note.key=key;
+  key=prefix(key)
+  var note=JSON.parse(get(key));
+  if(note) note.key=key
   return note;
 }
 
-export function update(key,item){localStorage.setItem(key,JSON.stringify(item));}
+export function update(key,item){set(JSON.stringify(item),key);}
 
 // remove note and children + update parent
 // should be called delete, but delete is a javascript keyword
 export function del(key){
+  key=prefix(key)
   var note=retrieve(key);
   for(var c of note.children) del(c);
   localStorage.removeItem(key);
@@ -72,7 +83,9 @@ export function getnotebooks(){
   let notebooks=[];
   for(let i=0;i<localStorage.length;i++){
     let key=localStorage.key(i);
-    if(key[0]!='_'&&key.indexOf('.')<0) notebooks.push(retrieve(key));
+    if(key==PREFIX+LASTOPEN) continue
+    if(key.indexOf(PREFIX)==0&&key.indexOf('.')<0)
+      notebooks.push(retrieve(key));
   }
   return notebooks;
 }
